@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+
+    <select id="queryAll" resultType="Banner">
+        select id,title,imgPath,status,b_date from f_banner
+    </select>
+
+    <delete id="delete" >
+
+        delete from f_banner where id=#{id}
+    </delete>
+
+    <insert id="insert">
+
+       insert into f_banner (id,title,imgPath,status,b_date) values(#{id},#{title},#{imgPath},#{status},#{b_date})
+    </insert>
+
+    <update id="update" >
+        update f_banner set title=#{title},status=#{status},b_date=#{b_date} where id=#{id}
+    </update>
+
+</mapper>

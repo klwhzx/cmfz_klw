@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+
+    <resultMap id="resultMap" type="Album">
+        <id property="id" column="aid" />
+        <result property="title" column="atitle" />
+        <result property="count" column="acount" />
+        <result property="author" column="aauthor" />
+        <result property="broadCast" column="abroadCast" />
+        <result property="brief" column="abrief" />
+        <collection property="children" ofType="Chapter">
+            <id property="id" column="bid" />
+            <result property="title" column="btitle" />
+            <result property="size" column="bsize" />
+            <result property="duration" column="bduration" />
+            <result property="downPath" column="bdownPath" />
+            <result property="c_date" column="bc_date" />
+            <result property="album_id" column="balbum_id" />
+        </collection>
+    </resultMap>
+    <select id="querys"  resultMap="resultMap">
+        select a.id aid,a.title atitle,a.count acount,a.author aauthor,a.broadCast abroadCast,a.brief abrief,
+			 b.id bid,b.title btitle,b.size bsize,b.duration bduration,b.downPath bdownPath,b.c_date bc_date,b.album_id balbum_id
+			 from f_album a left outer join f_chapter b
+			 on a.id=b.album_id
+    </select>
+
+    <select id="queryAll" resultType="Album">
+        select id,title,p_date,count,coverImg,star,author,broadCast,brief from f_album
+    </select>
+
+    <select id="queryById" resultType="Album" >
+        select id,title,p_date,count,coverImg,star,author,broadCast,brief from f_album where id=#{id}
+    </select>
+
+    <delete id="delete" >
+
+        delete from f_album where id=#{id}
+    </delete>
+
+    <insert id="insert">
+
+       insert into f_album (id,title,p_date,coverImg,star,author,broadCast,brief) values(#{id},#{title},#{p_date},#{coverImg},#{star},#{author},#{broadCast},#{brief})
+    </insert>
+
+    <update id="update" >
+        update f_album set title=#{title},p_date=#{p_date},coverImg=#{coverImg},author=#{author},broadCast=#{broadCast},brief=#{brief} where id=#{id}
+    </update>
+
+</mapper>
