@@ -16,7 +16,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    //查询菜单
+    //查询菜单 a
     @RequestMapping("/findMenu")
     public @ResponseBody
     List<Menu> findMenu(){
